@@ -1,0 +1,51 @@
+Hey there, today we're going to talk about Winograd convolution! 
+It's a super fast and efficient convolution algorithm that uses precomputed matrices to perform the convolution. 
+Basically, it reduces the number of arithmetic operations required compared to other methods by taking advantage of polynomial evaluation properties. 
+This algorithm is especially handy for small filter sizes and can be implemented really efficiently on parallel hardware architectures.
+
+In general, the notation F m r represents a 1D convolution operation with a filter size of r and an output size of m. 
+In two-dimensional space, this notation is extended to F m by n, r by s. 
+which refers to a convolution operation with a filter size of r by s and an output size of m by n.
+
+For example, F 2 2 is a convolution with input, kernel and output denoted by array x, g and y respectively.
+And the typical computation is shown below.
+There are 4 multiplications and 2 additions in total.
+However, the total operations can be reduced by some simple transformation.
+It's not hard to see that there are 3 multiplications and 3 additions to compute m1 m2 and m3.
+And with other 2 additions to compute the final result.
+
+It's not hard to extend F 2 2 to F 2 3
+here is the matrix representation, and its compact form.
+where the m1 to m4 is list below.
+well, it's not abvious how the later equation is derived from the previous one.
+we will give a detail explain which not covered in origin paper.
+think the result as a mutiplication of a constant value matrix named A, and a matrix form by m1 to m4 refer to M.
+the captain M is essentially an element wise multiplication of the following two matrix.
+where the left one is composed by elements of x.
+which can be decomposed into the multiplication of a constant value matrix B and the vector x.
+similarly, the right one is composed by elements of g.
+which can be decomposed into the multiplication of a constant value matrix L and the kernel g.
+put the above derivation together, we can get the compact form of F 2 3.
+
+In the two dimensional case, the convolution can be viewed as a one dimensional convolution nested with itself. 
+For example, if we take F two by two or three by three, its one-dimensional counterpart is F two three. 
+We denote the input two-dimensional array as 'captain X' and the kernel as 'captain G'. 
+The convolution is shown below. 
+It is quite similar to the one-dimensional case, except that the 'captain M' elements are all arrays. 
+For simplicity, let's denote x zero minus x two as 'captain r one' and g zero as 'captain s one'. 
+Then, we can apply the same rule to m two to m four. 
+Therefore, we get m i equals to r i star s i. 
+This equation is actually a one-dimensional convolution, 
+so it can be written in the following form, as we derived earlier.
+
+A typical convolution layer uses a bank of filters and a mini-batch of images as inputs.
+denote the mini-batch as X, and the kernel as G.
+each image is composed of multiple channels.
+on every channel, the convolution is performed independently.
+as an example, let's denote the i-th image and c-th channel as X i c.
+and the corresponding filter as G k c.
+the convolution process is shown below.
+denote the width and height of the filter as W f and H f respectively.
+then convolution formula can be written as below.
+
+A interesting fact is that the image convolution can be decomposed into a series small tiles operation.
