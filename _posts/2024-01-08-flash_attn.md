@@ -1,5 +1,5 @@
 ---
-title: LLM Acceleration Techniques: How Attention Fusion Works in FlashAttention
+title: LLM Acceleration Techniques--How Attention Fusion Works in FlashAttention
 tags: LLM ModelAcceleration FlashAttention
 ---
 
