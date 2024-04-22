@@ -74,7 +74,7 @@ The decomposition technique delineated above does not provide significant utilit
 
 ### Binary Block Scenario
 
-Consider the Attention computation process depicted in the preceding figure. For the sake of simplicity, we partition the `Q`, `K`, `V` matrices into two blocks, each of size $B\times d$. Initially, consider the computation process of the block. Load $Q_1, K_1 ,V_1$ into the shared memory (assuming the matrix block is sufficiently small to fit into sm), then compute $S_{11}$, $P'_{11}$, and $O'_1$ sequentially (note that $P'_{11} \ne P_{11}, O'_1 \ne O_1$ are not the final results, hence we use light yellow in the figure to represent them), and write $O'_1$ back to HBM.
+Consider the Attention computation process depicted in the preceding figure. For the sake of simplicity, we partition the `Q`, `K`, `V` matrices into two blocks, each of size $B\times d$. Initially, consider the computation process of the block. Load $Q_1, K_1 ,V_1$ into the shared memory (assuming the matrix block is sufficiently small to fit into sm), then compute $S\_{11}$, $P'\_{11}$, and $O'\_1$ sequentially (note that $P'\_{11} \ne P\_{11}, O'\_1 \ne O\_1$ are not the final results, hence we use light yellow in the figure to represent them), and write $O'\_1$ back to HBM.
 
 $$
 \begin{aligned}
@@ -138,7 +138,7 @@ O_1 &= \frac{f_{11}}{l_{11}}\odot \frac{l_{11}}{l_{11} + l_{12}} V_1 + \frac{f_{
 \end{aligned} 
 $$
 
-Given our previous derivation of $O'_1 = \frac{f_{11}}{l_{11}}V_1$, we can derive the relationship between $O_1$ and $O'_1$:
+Given our previous derivation of $O'\_1 = \frac{f\_{11}}{l\_{11}}V\_1$, we can derive the relationship between $O\_1$ and $O'\_1$:
 
 $$
 O_1 = O'_1 \odot \frac{l_{11}}{l_{11} + l_{12}} + \frac{f_{12}}{l_{11} + l_{12}} V_2
